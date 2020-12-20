@@ -6,11 +6,14 @@ const router = Router()
 
 router.get('/', async(req, res) =>{
     try {
-        const food = await FoodItem.find()
-        if(!food) throw new Error('No foods!')
-        const sorted = food.sort((a,b) => {
-            return new Date(a.date).getTime() - new Date(b.date).getTime()
-        })
+        const food = await FoodItem.findOne({
+            foodName: 'Lotus Seed and Bird Egg Soup'
+        }).populate('ingredients').
+        exec(function (err, food) {
+          if (err) return handleError(err);
+          console.log('The food is %s', food.foodName);
+          // prints "The author is Ian Fleming"
+        });
         res.status(200).json(sorted)
     } catch (error) {
         res.status(500).json({
