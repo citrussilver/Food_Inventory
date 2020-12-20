@@ -12,9 +12,8 @@ router.get('/', async(req, res) =>{
         exec(function (err, food) {
           if (err) return handleError(err);
           console.log('The food is %s', food.foodName);
-          // prints "The author is Ian Fleming"
         });
-        res.status(200).json(sorted)
+        res.send(food);
     } catch (error) {
         res.status(500).json({
             message: error.message
