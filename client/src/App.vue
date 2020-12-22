@@ -1,0 +1,58 @@
+<template>
+  <div id="app">
+    <nav class="navbar is-dark">
+      <div class="navbar-brand">
+        <span id="navspan">[WIP] Genshin Impact Food Inventory</span>
+      </div>
+    </nav>
+    <Food :foodsData="foodsData" v-on:update-qtys="updateOnHandQtys"/>
+    <footer class="footer footerspan">
+      <div class="content has-text-centered">
+        <p>2020 GI Food Inventory</p>
+        <p>by Hisokage</p>
+      </div>
+    </footer>
+  </div>
+</template>
+
+<script>
+import Food from './components/Food.vue'
+import axios from "axios"
+
+export default {
+  components: {
+    Food
+  },
+  data() {
+    return {
+      foodsData: []
+    }
+  },
+  async mounted() {
+    const response = await axios.get('api/foods/')
+    this.foodsData = response.data;
+  },
+  methods: {
+    async updateOnHandQtys(objects){
+      // console.log("On Hand Qty passed: " + objects.onhandqty + " Ingredient ID:" + objects.ingredient_id);
+      const response = await axios.patch('api/foods/' + objects.ingredient_id, {
+        onHandQty : objects.onhandqty
+      });
+      console.log(response.data)
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+#navspan {
+  padding: 1rem;
+}
+
+.footerspan {
+  background-color: #363636;
+}
+
+
+</style>
