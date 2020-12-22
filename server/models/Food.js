@@ -14,10 +14,10 @@ const foodSchema = new mongoose.Schema(
         imagePath: String,
         effect: String,
         onHandQty: Number,
-        ingredients:  {
+        ingredients:  [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Ingredient'
-        }
+        }]
     }
 );
 

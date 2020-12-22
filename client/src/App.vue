@@ -2,13 +2,13 @@
   <div id="app">
     <nav class="navbar is-dark">
       <div class="navbar-brand">
-        <span id="navspan">[WIP] Genshin Impact Food Inventory</span>
+        <span id="navspan">[WIP] Genshin Impact Food-Ingredients Inventory</span>
       </div>
     </nav>
     <Food :foodsData="foodsData" v-on:update-qtys="updateOnHandQtys"/>
     <footer class="footer footerspan">
       <div class="content has-text-centered">
-        <p>2020 GI Food Inventory</p>
+        <p>2020 GI Food-Ingredients Inventory</p>
         <p>by Hisokage</p>
       </div>
     </footer>
@@ -34,9 +34,10 @@ export default {
   },
   methods: {
     async updateOnHandQtys(objects){
-      // console.log("On Hand Qty passed: " + objects.onhandqty + " Ingredient ID:" + objects.ingredient_id);
+      // console.log("\nFood ID: " + objects.food_id + "\nOn Hand Qty passed: " + objects.onhandqty + "\nIngredient ID:" + objects.ingredient_id);
       const response = await axios.patch('api/foods/' + objects.ingredient_id, {
-        onHandQty : objects.onhandqty
+        onHandQty : objects.onhandqty,
+        ingredientName: objects.ingredientName
       });
       console.log(response.data)
     }
