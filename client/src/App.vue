@@ -18,6 +18,7 @@
 <script>
 import Food from './components/Food.vue'
 import axios from "axios"
+import { toast } from 'bulma-toast'
 
 export default {
   components: {
@@ -35,10 +36,19 @@ export default {
   methods: {
     async updateOnHandQtys(objects){
       // console.log("\nFood ID: " + objects.food_id + "\nOn Hand Qty passed: " + objects.onhandqty + "\nIngredient ID:" + objects.ingredient_id);
+      
       const response = await axios.patch('api/foods/' + objects.ingredient_id, {
         onHandQty : objects.onhandqty,
         ingredientName: objects.ingredientName
       });
+      toast({
+        message: 'Successfully updated ' + objects.ingredientName + ' quantity',
+        type: 'is-success',
+        position: "top-center",
+        dismissible: true,
+        pauseOnHover: true,
+        closeOnClick: true
+      })
       console.log(response.data)
     }
   }
