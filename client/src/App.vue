@@ -43,7 +43,7 @@ export default {
       });
       toast({
         message: 'Successfully updated ' + objects.ingredientName + ' quantity',
-        type: 'is-success',
+        type: 'is-info',
         position: "top-center",
         dismissible: true,
         pauseOnHover: true,
