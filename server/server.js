@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const foodRoutes = require('./routes/api/foods');
+const path = require('path');
 
 const app = express();
 
@@ -26,6 +27,13 @@ mongoose.connect(mongoUri, {
 .catch((err) => console.log(err))
 
 app.use('/api/foods', foodRoutes);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/dist'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'))
+  })
+}
 
 app.listen(port, function() {
     console.log(`Server started on port ${port}`);
